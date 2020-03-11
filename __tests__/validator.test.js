@@ -47,11 +47,26 @@ describe('validator', () => {
 
     expect(ageValidator.validate(dog)).toEqual(5);
   });
+  it('throws an error when validating an object with a missing required field', () => {
+    const dog = {
+      age: 5,
+      weight: '20 lbs'
+    };
 
+    expect(() => nameValidator.validate(dog)).toThrowError('Missing required field >>name<<');
+  });
 
+  it('throws an error when validating an object with a missing required field', () => {
+    const nameValidator = new Validator('name', {
+      type: String,
+      required: false
+    });
 
+    const dog = {
+      age: 5,
+      weight: '20 lbs'
+    };
 
-
-
-
+    expect(nameValidator.validate(dog)).toEqual(null);
+  });
 });
