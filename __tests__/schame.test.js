@@ -30,8 +30,34 @@ describe('schema', ()=> {
       weight: '20 lbs'
     });
   });
+  it('Test that validate method throws an error if the object doesn not follow the schema', ()=>{
+    const schema = new Schema({
+      name: {
+        type: String,
+        required: true
+      },
+      age: {
+        type: Number,
+        required: true
+      }
+    });
+    const who = {
+      age: 'hi'
+    };
+    expect(() => schema.validate(who)).toThrowError('Missing required field >>name<<');
 
+  });
+  it('Test that validate method throws an error if the object doesn not have the right type', ()=>{
+    const schema = new Schema({
+      age: {
+        type: Number,
+        required: true
+      }
+    });
+    const who = {
+      age: 'hi'
+    };
+    expect(() => schema.validate(who)).toThrowError('invalid schema');
 
-
-
+  });
 });
